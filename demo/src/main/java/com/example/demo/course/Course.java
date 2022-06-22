@@ -73,4 +73,15 @@ public class Course {
     public void setCourse_coordinator(String course_coordinator) {
         this.course_coordinator = course_coordinator;
     }
+
+    @Override
+    public String toString(){
+        return "Course{" +
+                "id = " + course_id +
+                ", name = " + course_name +
+                ", code = " + course_code +
+                ", creation date = " + course_creation_date +
+                ", coordinator = " + course_coordinator +
+                '}';
+    }
 }
