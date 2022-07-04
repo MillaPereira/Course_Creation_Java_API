@@ -1,25 +1,32 @@
 package com.example.demo.course;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.Month;
 
 @Service
 public class CourseService {
+
+	private final CourseRepository courseRepository;
+
+	@Autowired
+	public CourseService(CourseRepository courseRepository){
+		this.courseRepository = courseRepository;
+	}
+
     public List<Course> getCourse(){
-		return List.of(
-			new Course(
-				"Engenharia da Computação",
-				12345,
-				"123456",
-				LocalDate.of(2022, Month.JUNE,22),
-				"Roberta"
-			)
-		);
+		return courseRepository.findAll();
+	}
+
+	public void addNewCourse(Course course){
+		Optional<Course> courseByCode = courseRepository
+			.findCourseByCode(course.getCourse_code());
+			if(courseByCode.isPresent()){
+				throw new IllegalStateException("This course already exist.");
+			}
+			courseRepository.save(course);
 	}
 	
 }

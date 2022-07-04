@@ -1,7 +1,27 @@
 package com.example.demo.course;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table
+
 public class Course {
+    @Id
+    @SequenceGenerator(
+        name = "course_sequence",
+        sequenceName = "student_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "course_sequence"
+    )
     private String course_name;
     private Integer course_id;
     private String course_code;
